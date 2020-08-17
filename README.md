@@ -4,7 +4,7 @@
 　
  　
   
-<img src="/etc/승인거부.png" width="30%" height="30%" />        <img src="/etc/.png" width="30%" height="30%" />
+<img src="etc/승인거부.png" width="30%" height="30%" />        <img src="etc/.png" width="30%" height="30%" />
   
   
 ### 프로젝트 리뷰
