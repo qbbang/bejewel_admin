@@ -110,6 +110,96 @@ class ProductListViewModel: BaseViewModel {
 
 ```
 
+**ViewController** : 옵저버블의 데이터가 최종적으로 반영되는 아웃풋 속성들을 정의하고, 
+
+```swift
+
+class ProductListViewController: BaseViewController<ProductListViewModel>, UICollectionViewDelegate{
+        
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupBindings()
+        setupUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) { ... }
+    
+    private func setupBindings() {
+        viewModel = ProductListViewModel()
+        inputBindings()
+        outputBindings()
+    }
+    
+    private func setupUI() { ... }
+    
+    //MARK:- 입력 바인딩! 이벤트 발생하는 시점
+    private func inputBindings() {
+        
+        //MARK: 세그먼트 클릭 이벤트 - 세그먼트가 클릭되면 해당 인덱스를 뷰모델에 저장하고
+        menuBar.ProductList.rx
+            .selectedSegmentIndex
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] idx in
+                self?.viewModel.idx = idx
+                self?.viewModel.reqeustProductList(idx)
+                self?.collectionView.setContentOffset(CGPoint.zero, animated: false)
+            })
+            .disposed(by: disposeBag)
+        
+        collectionView.rx
+            .contentOffset
+            .throttle(0.1, scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] offset in
+                let _offset = CGFloat(
+                    (self?.collectionView.contentSize.height ?? 0) / 3
+                )
+                if offset.y > _offset {
+                    self?.viewModel.requestAddProductList()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+    }
+    
+    private func outputBindings() {
+        viewModel.productList
+            .bind(to: collectionView.rx.items(cellIdentifier: ProductListCell.identifier, cellType: ProductListCell.self)) {
+                _, item, cell in
+                //MARK: cell에 product 요소 전달
+                cell.onData.onNext(item)
+                
+                cell.cellTapped = { [weak self] in
+                    self?.performSegue(withIdentifier: SEGUE.DETAIL.rawValue, sender: item.id)
+                }
+        }.disposed(by: disposeBag)
+        
+    }
+    
+    //MARK: Navigator
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let identifier = segue.identifier else { return }
+        
+        if identifier == SEGUE.DETAIL.rawValue {
+            let targetVC = (segue.destination as! UINavigationController).topViewController as! ProductDetailViewController
+            
+            guard let id = sender else { fatalError("Failed optional unrapping") }
+            
+            targetVC.viewModel = ProductDetailViewModel(
+                productID: id,
+                productUpdateLogId: 0,
+                idx: viewModel.idx,
+                storeID: 0,
+                type: 0,
+                productName: "",
+                categoryName: ""
+            )
+            
+            targetVC.viewModel.requestProductDetail(productID: id)
+            targetVC.viewModel.requestRejectReason(id: id, logId: targetVC.viewModel.productUpdateLogId, vc: targetVC)
+            
+        }
+    }
+}
 
 ### 사용된 라이브러리
 
