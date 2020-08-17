@@ -2,11 +2,12 @@
 
 `2019.09 - 2019.11`
 
-
-<img src="/etc/list.png" width="30%" height="30%" />        <img src="/etc/reject.PNG" width="30%" height="30%" />
-
-
+　
+ 　
   　
+<img src="/etc/list.png" width="30%" height="30%" />        <img src="/etc/reject.png" width="30%" height="30%" />
+
+
 ### 프로젝트 리뷰
 
 : MD 담당자의 필요로 작업 된 사항, 테스트 플라이트 내부에서만 관리한 관리자 승인 App
