@@ -1,9 +1,12 @@
 # bejewel_admin
 
 `2019.09 - 2019.11`
-    
-        
-
+　
+ 　
+  
+<img src="/etc/승인거부.png" width="30%" height="30%" />        <img src="/etc/.png" width="30%" height="30%" />
+  
+  
 ### 프로젝트 리뷰
 
 : MD 담당자의 필요에 의해 작업된 사항, 테스트 플라이트 내부에서만 관리한 관리자 승인 App
@@ -11,9 +14,9 @@
 간단한 프로젝트여서, RxSwift의 개념을 익히고자 MVVM + Moya + RxSwift 구조를 채용함.
 
 RxSwift를 왜 쓰지 하는 의문점이 항상 존재 했는데
-    
-    
-
+　
+ 　
+  
 ### 사용된 라이브러리
 
      - 네트워크 처리를 위한 Moya / RxSwift
@@ -21,9 +24,9 @@ RxSwift를 왜 쓰지 하는 의문점이 항상 존재 했는데
      - 이미지 캐시 처리를 위한 Kingfisher
      
      - 리액티브 프로그래밍을 위한 RxSwift
-    
-    
-
+　
+ 　
+  
 ### 프로젝트 구조 
 
 **네트워크** : Moya를 통해 열거형으로 나열한 클래스 "AdminAPI"
