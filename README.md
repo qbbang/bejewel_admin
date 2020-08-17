@@ -2,8 +2,10 @@
 
 `2019.09 - 2019.11`
 
-　
- 　
+
+<img src="/etc/list.png" width="30%" height="30%" />        <img src="/etc/reject.PNG" width="30%" height="30%" />
+
+
   　
 ### 프로젝트 리뷰
 
